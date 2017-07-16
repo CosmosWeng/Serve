@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Apis;
 
 use DB;
 use Illuminate\Http\Request;
@@ -16,6 +16,6 @@ class Controller extends BaseController
 
     public function restGet()
     {
-        var_dump('Web');
+        var_dump('APi');
     }
 }

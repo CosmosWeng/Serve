@@ -15,8 +15,6 @@ class DynamicRoute
      */
     public function handle($request, Closure $next)
     {
-        var_dump($next);
-        exit;
         return $next($request);
     }
 }

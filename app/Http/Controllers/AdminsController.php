@@ -7,9 +7,6 @@ class AdminsController extends Controller
 {
     public function index(Request $req)
     {
-        $admins = $this->db::table('admins')
-                      ->get();
-        var_dump($admins);
-        exit;
+        var_dump($req);
     }
 }
