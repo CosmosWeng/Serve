@@ -15,37 +15,48 @@ use Illuminate\Http\Request;
 
 Route::group(['middleware'=>'dynamic'], function () {
     if (isset($_SERVER['REQUEST_URI'])) {
-        $request = explode('/', $_SERVER['REQUEST_URI']);
-        $url = '/';
+        $request = explode('/', parse_url($_SERVER['REQUEST_URI'])['path']);
+        $url = '';
         $controller = 'Apis\\';
         $class = 'Controller';
-        $req_method = 'rest' . ucfirst(strtolower($_SERVER['REQUEST_METHOD']));
-        $method = $req_method;
+        $rest = 'rest';
+        $Bulk = 'Bulk';
+        $method = $rest.$Bulk;
+        $func = '';
 
-        if (isset($request[2])) {
-            $url .= $request[2];
-            $class = ucfirst($request[2]). $class;
+        foreach ($request as $key => $value) {
+            if ($key == 1 || $key == 0) {
+                continue;
+            }
+            if ($key == 2) {
+                $url .= $request[2];
+                $class = ucfirst($value). $class;
+                continue;
+            }
+
+            if (preg_match('/^([0-9]+)$/', $value)) {
+                $url .= '/{id?}';
+                $method = $rest;
+            } else {
+                $url .= '/' . $value;
+                $method = $rest . $Bulk;
+                $func .= '_' . $value;
+            }
         }
         $controller .= $class.'@';
-
-        if (isset($request[3])) {
-            $url .= '/' .$request[3];
-            $method .= '_'.$request[3];
-        }
-
-        if (isset($request[4])) {
-            $url .= '/{id?}';
-        }
-
         $namespace = 'App\Http\Controllers\Apis';
         if (class_exists($namespace.'\\'.$class)) {
             $control =  $namespace.'\\'.$class;
             $control = new $control;
-            if (method_exists($control, $method)) {
-                $controller .= $method;
+            $method =  $method . ucfirst(strtolower($_SERVER['REQUEST_METHOD']));
+            $func = $method .$func ;
+            if (method_exists($control, $func)) {
+                $controller .= $func;
             } else {
-                $controller .= $req_method;
+                $controller .= $method;
             }
+            // var_dump($url, $controller);
+            // exit;
             Route::get($url, $controller);
             Route::post($url, $controller);
             Route::put($url, $controller);
