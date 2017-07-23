@@ -7,4 +7,6 @@
     </body>
 
 @include('backend.login.footer')
+
+@yield('js')
 </html>
