@@ -12,42 +12,35 @@
 */
 //Route::get('/', 'Controller@method');
 
-Route::group(['middleware'=>'dynamic'], function () {
+Route::group([], function () {
     if (isset($_SERVER['REQUEST_URI'])) {
-        $request = explode('/', $_SERVER['REQUEST_URI']);
-        $url = '/';
-        $namespace = 'App\Http\Controllers';
-        $class = 'Controller';
-        $req_method = 'rest' . ucfirst(strtolower($_SERVER['REQUEST_METHOD']));
-        $method = $req_method;
-
-        if (isset($request[1])) {
-            $url .= $request[1];
-            $class = ucfirst($request[1]).'Controller';
-            $controller = $class.'@';
-        }
-
-        if (isset($request[2])) {
-            $url .= '/' .$request[2];
-            $method .= '_'.$request[2];
-        }
-
-        if (isset($request[3])) {
-            $url .= '/{id?}';
-        }
-        if (class_exists($namespace.'\\'.$class)) {
-            $controller = 'Controller@';
-            $control =  $namespace.'\\'.$class;
-            $control = new $control;
-            if (method_exists($control, $method)) {
-                $controller .= $method;
-            } else {
-                $controller .= $req_method;
+        $request = explode('/', parse_url($_SERVER['REQUEST_URI'])['path']);
+        $url = '';
+        foreach ($request as $key => $value) {
+            if ($key == 1) {
+                continue;
             }
-            Route::get($url, $controller);
-            Route::post($url, $controller);
-            Route::put($url, $controller);
-            Route::delete($url, $controller);
+            $url .= '/{key'. $key . '}';
         }
+
+        Route::get($url, function () {
+            $keys = func_get_args();
+            $index = 1;
+            $url = '';
+            foreach ($keys as $k =>$value) {
+                if (preg_match('/^([0-9]+)$/', $value)) {
+                    $data['id'.$index] = $value;
+                    $index += 1;
+                } else {
+                    $url .= '.' .$value;
+                    $data[$value] = $value;
+                }
+            }
+            $url = ltrim($url, '.');
+            if (view()->exists($url)) {
+                return view($url, $data);
+            }
+            return view('errors.404');
+        });
     }
 });
