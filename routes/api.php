@@ -13,54 +13,51 @@ use Illuminate\Http\Request;
 |
 */
 
+// 以 Contollers 為根目錄, 第一個 segment 為 目錄, 第二個 為 class, 第三個 為 function
 Route::group(['middleware'=>'dynamic'], function () {
     if (isset($_SERVER['REQUEST_URI'])) {
-        $request = explode('/', parse_url($_SERVER['REQUEST_URI'])['path']);
-        $url = '';
-        $controller = 'Apis\\';
-        $class = 'Controller';
-        $rest = 'rest';
-        $Bulk = 'Bulk';
-        $method = $rest.$Bulk;
-        $func = '';
-
+        $request    = array_slice(explode('/', parse_url($_SERVER['REQUEST_URI'])['path']), 2) ;
+        $url        = '';
+        $controller = '';
+        $control    = false;
+        $rest       = 'rest';
+        $Bulk       = 'Bulk';
+        $method     = ucfirst(strtolower($_SERVER['REQUEST_METHOD']));
+        $basefun    = '';
+        $func       = '';
+        $index = 1;
         foreach ($request as $key => $value) {
-            if ($key == 1 || $key == 0) {
-                continue;
-            }
-            if ($key == 2) {
-                $url .= $request[2];
-                $class = ucfirst($value). $class;
-                continue;
-            }
-
-            if (preg_match('/^([0-9]+)$/', $value)) {
-                $url .= '/{id?}';
-                $method = $rest;
+            if (file_exists(app_path('Http/Controllers/').ucfirst($value))) {
+                // 為目錄
+                $controller = ucfirst($value).'\\';
+                $url = $value .'/';
+            } elseif (file_exists(app_path('Http/Controllers/').ucfirst($url).ucfirst($value).'Controller.php')) {
+                // 檔案
+                $controller .= ucfirst($value) . 'Controller';
+                $url .= $value ;
+                $class = 'App\Http\Controllers\\'. $controller;
+                if (class_exists($class)) {
+                    $control = new $class;
+                }
+            } elseif (preg_match('/^([0-9]+)$/', $value)) {
+                $url .= '/{arg'.$index.'?}';
+                $index   = $index + 1;
+                $basefun = $rest . $method;
+                $func    = $basefun;
             } else {
                 $url .= '/' . $value;
-                $method = $rest . $Bulk;
-                $func .= '_' . $value;
+                $basefun = $rest .$Bulk. $method;
+                $func    = $basefun .'_'. $value;
             }
-        }
-        $controller .= $class.'@';
-        $namespace = 'App\Http\Controllers\Apis';
-        if (class_exists($namespace.'\\'.$class)) {
-            $control =  $namespace.'\\'.$class;
-            $control = new $control;
-            $method =  $method . ucfirst(strtolower($_SERVER['REQUEST_METHOD']));
-            $func = $method .$func ;
             if (method_exists($control, $func)) {
-                $controller .= $func;
+                $func = $controller . '@' . $func;
             } else {
-                $controller .= $method;
+                $func = $controller . '@' . $basefun;
             }
-            // var_dump($url, $controller);
-            // exit;
-            Route::get($url, $controller);
-            Route::post($url, $controller);
-            Route::put($url, $controller);
-            Route::delete($url, $controller);
         }
+        Route::get($url, $func);
+        Route::post($url, $func);
+        Route::put($url, $func);
+        Route::delete($url, $func);
     }
 });

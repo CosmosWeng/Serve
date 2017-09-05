@@ -10,7 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Route::get('/', 'Controller@method');
+Route::get('/', function () {
+    return View('welcome');
+});
 
 Route::group([], function () {
     if (isset($_SERVER['REQUEST_URI'])) {

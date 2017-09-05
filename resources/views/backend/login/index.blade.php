@@ -32,9 +32,8 @@
 
 @section('js')
   <script>
-  requirejs(['/scripts/app.js'],function (app) {
-     requirejs(['ajax'],function (ajax) {
-       console.log(ajax);
+  requirejs(['/scripts/config.js'],function (app) {
+     requirejs(['api!ajax'],function (ajax) {
        console.log(ajax());
      });
   });
