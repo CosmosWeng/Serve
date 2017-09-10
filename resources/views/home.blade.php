@@ -2,107 +2,110 @@
 @section('content')
 
 
-  <div class="ui grid ">
-    <div class="column row">
-      <div class="ui shape right floated ten wide column">
-        <div class="sides">
-          <div class="ui active side small images">
-            <img src="/images/wireframe/image.png">
-            <img src="/images/wireframe/image.png">
+  <div class="row">
+    <div class="ui pull-right">
+      <form class="ui form segment">
+        <div class="field">
+          <input type="text" name="login-email" placeholder="Email">
+        </div>
+        <div class="field">
+          <input type="password" name="login-password" placeholder="Password">
+        </div>
+        <div class="ui button">Login</div>
+      </form>
+      <div class="ui card">
+        <div class="content">
+          <img class="right floated small ui image" src="/images/avatar2/large/kristy.png">
+          <div class="header">
+            Elliot Fu
           </div>
-          <div class="ui side small images">
-            <img class="ui circular image" src="/images/wireframe/image.png">
-            <img class="ui circular image" src="/images/wireframe/image.png">
+          <div class="meta">
+            Friends of Veronika
+          </div>
+          <div class="description">
+            <div class="ui blue progress">
+              <div class="bar">
+                <div class="label">Rating</div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="ui two buttons">
+            <div class="ui basic green button">Approve</div>
+            <div class="ui basic red button">Decline</div>
           </div>
         </div>
       </div>
-      <div class="ui right floated four wide column hidden">
-          <form class="ui conten form">
-            <div class="field">
-              <input type="text" name="login-email" placeholder="Email">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="sticky">
+      <div id="articles" class="">
+        <div class="ui four column grid doubling stackable container">
+          <div class="ui column">
+            <div class="ui segments">
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
             </div>
-            <div class="field">
-              <input type="password" name="login-password" placeholder="Password">
+          </div>
+          <div class="ui column">
+            <div class="ui segments">
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
             </div>
-            <button class="ui button" type="submit">Login</button>
-          </form>
+          </div>
+          <div class="ui column">
+            <div class="ui segments">
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+            </div>
+          </div>
+          <div class="ui column">
+            <div class="ui segments">
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+              <div class="ui segment">Content</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-  <div class="ui divider"></div>
-
-  <div class="ui four column grid doubling stackable container">
-    <div class="ui column">
-      <div class="ui segments">
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-      </div>
-    </div>
-    <div class="ui column">
-      <div class="ui segments">
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-      </div>
-    </div>
-    <div class="ui column">
-      <div class="ui segments">
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-      </div>
-    </div>
-    <div class="ui column">
-      <div class="ui segments">
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-      </div>
-    </div>
-  </div>
-  <div class="ui four column grid doubling stackable container">
-    <div class="ui column">
-      <div class="ui segments">
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-      </div>
-    </div>
-    <div class="ui column">
-      <div class="ui segments">
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-      </div>
-    </div>
-    <div class="ui column">
-      <div class="ui segments">
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-      </div>
-    </div>
-    <div class="ui column">
-      <div class="ui segments">
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-        <div class="ui segment">Content</div>
-      </div>
-    </div>
-  </div>
-
-
-
 @endsection
 
 @section('js')
@@ -112,6 +115,7 @@
       $('.main.menu').visibility({
         type: 'fixed'
       });
+
       $('.overlay').visibility({
         type: 'fixed',
         offset: 80
@@ -126,6 +130,11 @@
 
       $('.shape')
         .shape('flip up');
+
+      $('.ui.sticky').sticky({
+        offset       : 50,
+        context: '#articles'
+      });
 
       // show dropdown on hover
       $('.main.menu  .ui.dropdown').dropdown({

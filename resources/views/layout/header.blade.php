@@ -5,13 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="Cosmos" content="login">
-
     <title>{{isset($title)?$title:'Home'}}</title>
-
-    <link href="{{ asset('css/semantic.min.css') }}" rel="stylesheet" type="text/css">
-
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
-    <script src="{{ asset('js/semantic.min.js') }}"></script>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet" type="text/css">
 </head>
