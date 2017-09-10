@@ -19,7 +19,7 @@ Route::group(['middleware'=>'dynamic'], function () {
         $method     = ucfirst(strtolower($_SERVER['REQUEST_METHOD']));
         $request    = array_slice(explode('/', parse_url($_SERVER['REQUEST_URI'])['path']), 2) ;
 
-        if (file_exists(app_path('Http/Controllers/').ucfirst($request[0]))) {
+        if (!empty($request[0]) && file_exists(app_path('Http/Controllers/').ucfirst($request[0]))) {
             // dir
             $controller = ucfirst($request[0]).'\\';
             $url = $request[0];

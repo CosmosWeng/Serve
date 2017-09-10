@@ -11,8 +11,8 @@
 |
 */
 Route::get('/', function () {
-    return View('welcome');
-})->name('home');;
+    return View('home');
+});
 
 Route::group([], function () {
     if (isset($_SERVER['REQUEST_URI'])) {
