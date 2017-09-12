@@ -6,7 +6,8 @@
  */
 
 require('./bootstrap')
-require('./libs')
+tools = require('./libs/tools')
+
 window.Vue = require('vue')
 
 /**
@@ -23,6 +24,8 @@ var app = new Vue({
   el: '#app',
   methods: {
     prompt: function () {
+      var json = tools.dotoCase('/home','get',{});
+      console.log(json);
     }
   }
 })
