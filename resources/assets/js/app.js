@@ -6,7 +6,7 @@
  */
 
 require('./bootstrap')
-
+require('./libs')
 window.Vue = require('vue')
 
 /**
@@ -17,6 +17,13 @@ window.Vue = require('vue')
 
 Vue.component('example', require('./components/Example.vue'))
 
+console.log($('form').serializeObject())
+
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  methods: {
+    prompt: function () {
+    }
+  }
 })
+app.prompt()

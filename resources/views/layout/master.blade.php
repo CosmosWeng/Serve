@@ -82,8 +82,7 @@ $(document).ready(function () {
 
     $(document).on('click','.login',function() {
         $this = $(this);
-        console.log($this);
-        formData = $this.parents('form').serialize();
+        formData = $this.parents('form').serializeObject();
         console.log(formData);
     });
 

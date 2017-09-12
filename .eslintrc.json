@@ -34,6 +34,7 @@
     "window": false
   },
   "rules": {
+    "prefer-const": 0,
     "space-before-function-paren": ["error", {
         "anonymous": "ignore",
         "named": "always",
