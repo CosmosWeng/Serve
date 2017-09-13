@@ -53,14 +53,15 @@
                 </div>
             </div>
         </div>
-        <div id="app" class="container">
+        <div id="{{ $filename }}" class="container">
             @yield('content')
         </div>
     </body>
-
 @include('layout.footer')
-@yield('js')
+
 </html>
+@yield('js')
+@include('layout.cdn')
 
 <script>
 

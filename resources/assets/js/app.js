@@ -5,8 +5,6 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap')
-tools = require('./libs/tools')
 
 window.Vue = require('vue')
 
@@ -15,12 +13,6 @@ window.Vue = require('vue')
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-Vue.component('v-login-form', require('./components/LoginForm.vue'))
-
-var pro = new Vue({
-  el: '#pro-info'
-})
 
 var app = new Vue({
   el: '#app',

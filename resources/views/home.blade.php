@@ -65,16 +65,13 @@
       </div>
     </div>
   </div>
-  
+
 
 @endsection
 
 @section('js')
+  <script src="{{ asset('js/app.js') }}"></script>
   <script>
-  $(document).ready(function() {
-
-
-    });
   </script>
 
 @endsection

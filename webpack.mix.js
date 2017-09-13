@@ -11,10 +11,10 @@ let mix = require('laravel-mix')
  |
  */
 
+
 mix.js('resources/assets/js/app.js', 'public/js')
   .sass('resources/assets/sass/app.scss', 'public/css')//
 
-// mix.js('resources/assets/js/libs.js', 'public/js')
-// mix.copy('semantic/dist/semantic.min.js', 'public/js/semantic.min.js')
-// mix.copy('semantic/dist/semantic.min.css', 'public/css/semantic.min.css')
-// mix.copy('semantic/dist/themes', 'public/css/themes')
+mix.js('resources/assets/js/header.js', 'public/js')
+
+mix.js('resources/assets/js/novel/list', 'public/js/novel')
