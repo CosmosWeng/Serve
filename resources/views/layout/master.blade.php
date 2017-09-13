@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 @include('layout.header')
-    <body >
+    <body>
         <div class="ui borderless stackable main menu" style="">
           <div class="ui text container">
             <div href="#" class="header item">
@@ -20,17 +20,11 @@
             </a>
           </div>
         </div>
-        <div class="col-md-3 col-xs-12 pull-right">
+        <div id="pro-info" class="col-md-3 col-xs-12 pull-right">
+
             <div class="form">
-                <form class="ui form segment">
-                  <div class="field">
-                    <input type="text" name="login-email" placeholder="Email" value="cosmos">
-                  </div>
-                  <div class="field">
-                    <input type="password" name="login-password" placeholder="Password" value="1234">
-                  </div>
-                  <div class="ui button login">Login</div>
-                </form>
+                <v-login-form>
+                </v-login-form>
             </div>
             <div class="ui fluid card hidden">
                 <div class="content">
@@ -80,11 +74,11 @@ $(document).ready(function () {
         on: 'hover'
     });
 
-    $(document).on('click','.login',function() {
-        $this = $(this);
-        formData = $this.parents('form').serializeObject();
-        console.log(formData);
-    });
+    // $(document).on('click','.login',function() {
+    //     $this = $(this);
+    //     formData = $this.parents('form').serializeObject();
+    //     console.log(formData);
+    // });
 
 });
 

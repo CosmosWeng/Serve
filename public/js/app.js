@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ 	return __webpack_require__(__webpack_require__.s = 41);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -471,7 +471,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(35)))
 
 /***/ }),
 /* 2 */
@@ -776,9 +776,9 @@ module.exports = g;
  */
 
 __webpack_require__(29);
-tools = __webpack_require__(49);
+tools = __webpack_require__(31);
 
-window.Vue = __webpack_require__(38);
+window.Vue = __webpack_require__(39);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -786,20 +786,16 @@ window.Vue = __webpack_require__(38);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(35));
+Vue.component('v-login-form', __webpack_require__(51));
 
-console.log($('form').serializeObject());
+var pro = new Vue({
+  el: '#pro-info'
+});
 
 var app = new Vue({
   el: '#app',
-  methods: {
-    prompt: function prompt() {
-      var json = tools.dotoCase('/home', 'get', {});
-      console.log(json);
-    }
-  }
+  methods: {}
 });
-app.prompt();
 
 /***/ }),
 /* 9 */
@@ -1649,40 +1645,12 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 28 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Component mounted.');
-  }
-});
-
-/***/ }),
+/* 28 */,
 /* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(33);
+window._ = __webpack_require__(34);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -1691,9 +1659,9 @@ window._ = __webpack_require__(33);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(32);
+  window.$ = window.jQuery = __webpack_require__(33);
 
-  __webpack_require__(31);
+  __webpack_require__(32);
   __webpack_require__(30);
 } catch (e) {}
 /**
@@ -1772,6 +1740,65 @@ Storage.prototype.getObject = function (key) {
 
 /***/ }),
 /* 31 */
+/***/ (function(module, exports) {
+
+var optionsData = function optionsData(type, data) {
+  var sess;
+
+  if (localStorage.getObject('user')) {
+    sess = localStorage.getObject('user')['_sess'];
+  }
+
+  if (typeof data === 'undefined' || data === '') {
+    data = {};
+    data._sess = sess;
+  }
+
+  if (typeof sess !== 'undefined') {
+    data._sess = sess;
+  }
+
+  if (type === 'get') {
+    return $.param(data);
+  } else {
+    return JSON.stringify(data);
+  }
+};
+module.exports = {
+  dotoCase: function dotoCase(url, type, data) {
+    var options = {
+      async: false,
+      dataType: 'json',
+      url: url,
+      type: type
+    };
+
+    options.data = optionsData(type, data);
+    if (localStorage.getObject('user')) {
+      options.beforeSend = function setHeader(xhr) {
+        xhr.setRequestHeader('X-SESSION', localStorage.getObject('user')['_sess']);
+      };
+    }
+    var result = $.ajax(options);
+    responseText = result.responseText;
+
+    if (typeof responseText === 'string') {
+      try {
+        responseText = JSON.parse(result.responseText);
+      } catch (e) {
+        responseText = {
+          'message': 'IS NOT JSON'
+          // console.log(e);
+        };
+      }
+    }
+    var json = responseText; // jQuery.parseJSON
+    return json;
+  }
+};
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports) {
 
 /*!
@@ -4154,7 +4181,7 @@ if (typeof jQuery === 'undefined') {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -14414,7 +14441,7 @@ return jQuery;
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -31503,10 +31530,10 @@ return jQuery;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(39)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7), __webpack_require__(40)(module)))
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -31696,41 +31723,8 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(36)(
-  /* script */
-  __webpack_require__(28),
-  /* template */
-  __webpack_require__(37),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/home/vagrant/Code/Serve/resources/assets/js/components/Example.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Example.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-095e29ba", Component.options)
-  } else {
-    hotAPI.reload("data-v-095e29ba", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 36 */
+/* 36 */,
+/* 37 */
 /***/ (function(module, exports) {
 
 // this module is a runtime utility for cleaner component module output and will
@@ -31787,36 +31781,8 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-8 col-md-offset-2"
-  }, [_c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Example Component")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_vm._v("\n          I'm an example component!\n        ")])])])])])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-095e29ba", module.exports)
-  }
-}
-
-/***/ }),
-/* 38 */
+/* 38 */,
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41911,7 +41877,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -41939,7 +41905,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(8);
@@ -41947,7 +41913,6 @@ module.exports = __webpack_require__(9);
 
 
 /***/ }),
-/* 41 */,
 /* 42 */,
 /* 43 */,
 /* 44 */,
@@ -41955,14 +41920,122 @@ module.exports = __webpack_require__(9);
 /* 46 */,
 /* 47 */,
 /* 48 */,
-/* 49 */
-/***/ (function(module, exports) {
+/* 49 */,
+/* 50 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = {
-  dotoCase: function dotoCase(url, methed, params) {
-    return url + methed + params;
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      url: 'home',
+      type: 'get',
+      params: {}
+    };
+  },
+  methods: {
+    login: function login(event) {
+      var formData = $(this.$el).serializeObject();
+      var json = tools.dotoCase(this.url, this.type, formData);
+      console.log(json);
+    }
+  },
+  mounted: function mounted() {
+    console.log('import LoginForm');
   }
-};
+});
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(37)(
+  /* script */
+  __webpack_require__(50),
+  /* template */
+  __webpack_require__(52),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/home/vagrant/Code/Serve/resources/assets/js/components/LoginForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] LoginForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-47c2ffc6", Component.options)
+  } else {
+    hotAPI.reload("data-v-47c2ffc6", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('form', {
+    staticClass: "ui form segment"
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "ui button login",
+    on: {
+      "click": _vm.login
+    }
+  }, [_vm._v("Login")])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "field"
+  }, [_c('input', {
+    attrs: {
+      "type": "text",
+      "name": "login-email",
+      "placeholder": "Email",
+      "value": "cosmos"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "field"
+  }, [_c('input', {
+    attrs: {
+      "type": "password",
+      "name": "login-password",
+      "placeholder": "Password",
+      "value": "1234"
+    }
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-47c2ffc6", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

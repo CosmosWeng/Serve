@@ -42,6 +42,7 @@
     }],
     "arrow-parens": 0,
     "generator-star-spacing": 0,
+    "no-undef":[0],
     "no-unused-vars": [1, {
       "vars": "local",
       "args": "none"

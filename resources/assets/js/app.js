@@ -16,17 +16,14 @@ window.Vue = require('vue')
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'))
+Vue.component('v-login-form', require('./components/LoginForm.vue'))
 
-console.log($('form').serializeObject())
+var pro = new Vue({
+  el: '#pro-info'
+})
 
 var app = new Vue({
   el: '#app',
   methods: {
-    prompt: function () {
-      var json = tools.dotoCase('/home','get',{});
-      console.log(json);
-    }
   }
 })
-app.prompt()
