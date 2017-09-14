@@ -20,23 +20,48 @@ Route::group([], function () {
         $path = Request::path();
         $request = explode('/', $path);
 
-
         var_dump($path, $request);
         foreach ($request as $key => $value) {
-            $url .= '/{key'. $key . '}';
+            if ($value == '') {
+                continue;
+            }
+            $url .= '/{key'. $key . '?}';
         }
 
-        if ($path == '/') {
-            $request = ['home'];
-            $url = '/';
-        }
+        // if ($path == '/') {
+        //     $request = ['home'];
+        //     $url = '/';
+        // }
+        //
+        // if (preg_match('/^([0-9]+)$/', $path)) {
+        //     $url = '/{id?}';
+        // }
 
         var_dump($url);
         Route::get($url, function () {
+            $view = '';
             $args = func_get_args();
-            $data = [];
+            $url_info = [];
             var_dump($args);
+            $index = 0;
+            foreach ($args as $k =>$value) {
+                if (preg_match('/^([0-9]+)$/', $value)) {
+                    $url_info[] = $value;
+                    $index += 1;
+                } else {
+                    $view .= '.' .$value;
+                    $url_info[] = $value;
+                    $data['filename'] = $value;
+                }
+            }
+            if (!$view) {
+                $view = 'home';
+            }
+            $data['url_info'] = $url_info;
+            $view = ltrim($view, '.');
+            var_dump($view, $data);
             return view('errors.404', $data);
+            //return view('errors.404', $data);
         });
 
         // $request = explode('/', parse_url($_SERVER['REQUEST_URI'])['path']);
